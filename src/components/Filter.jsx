@@ -5,8 +5,11 @@ export class Filter extends Component{
 
   
     onChange = (e) => {
+        
         this.props.onChange(e.target.value)
     }
+
+
     
 
     render() {
@@ -19,3 +22,4 @@ export class Filter extends Component{
         )
     }
 }
+

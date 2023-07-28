@@ -13,8 +13,9 @@ export class ContactForm extends Component{
 
 
     onChangeInput = e => {
-    const {name,value}=e.target
-    this.setState({ [name]:value})
+      const { name, value } = e.target
+      
+      this.setState({ [name]: value })
   }
 
     saveContact = e => {

@@ -1,6 +1,7 @@
 import { Component } from "react"
 import { ContactForm } from "./ContactForm"
 import { Filter } from "./Filter"
+import { ContactList } from "./ContactList"
 
 
 
@@ -27,17 +28,32 @@ export class App extends Component {
    this.setState({
       filter: str
     })
-}   
+  }   
   
 
-onSubmit=obj=> {
+  searchName(obj) {
+    
+return this.state.contacts.find(el=> el.name===obj.name)
+
+  }
+  
+
+  onSubmit = obj => {
+
+    if (this.searchName(obj)) {
+      return alert(`${obj.name} is already in contacts`)
+    }
 
     this.setState(prevState=>({
-      contacts: [...prevState.contacts, obj ],
+      contacts: [...prevState.contacts, obj ]
     
     }))
 
 
+  }
+
+  onClick = () => {
+    console.log("click");
   }
 
   handleFilter = () => {
@@ -45,17 +61,11 @@ onSubmit=obj=> {
     const { filter, contacts } = this.state
 
     
-   const filtered= contacts.filter(el => {
+   return contacts.filter(el => {
       const name = el.name.toLowerCase()
       return name.includes(filter.toLowerCase())
     })
     
-    return filtered.map(el => {
-           return(<li key={el.id}>
-             <p>{el.name}: { el.number }</p>
-            </li>)
-          })
-   
 
   }
 
@@ -80,22 +90,12 @@ onSubmit=obj=> {
 
         <h2>Contacts</h2>
         <Filter onChange={ this.onFilterChange} />
-        <ul>
-
-          {filter ? this.handleFilter()
-            : contacts.map(el => {
-           return(<li key={el.id}>
-             <p>{el.name}: { el.number }</p>
-            </li>)
-          })}
-
-        </ul>
-        
-
        
-
-
-
+        < ContactList 
+          contacts={this.handleFilter()}
+          onClick={()=>this.onClick()}
+          />
+        
 
     </div>
 )
