@@ -24,7 +24,6 @@ export class App extends Component {
 
 
   onFilterChange = str => {
-   
    this.setState({
       filter: str
     })
@@ -52,9 +51,7 @@ return this.state.contacts.find(el=> el.name===obj.name)
 
   }
 
-  onClick = () => {
-    console.log("click");
-  }
+  
 
   handleFilter = () => {
     
@@ -66,6 +63,18 @@ return this.state.contacts.find(el=> el.name===obj.name)
       return name.includes(filter.toLowerCase())
     })
     
+
+  }
+
+  onClick = (id) => {
+    
+   
+
+    this.setState(prevState => {
+      const updateState = prevState.contacts.filter(el => el.id !== id);
+
+      return { contacts: updateState };
+    });
 
   }
 
@@ -93,7 +102,7 @@ return this.state.contacts.find(el=> el.name===obj.name)
        
         < ContactList 
           contacts={this.handleFilter()}
-          onClick={()=>this.onClick()}
+          onClick={this.onClick}
           />
         
 

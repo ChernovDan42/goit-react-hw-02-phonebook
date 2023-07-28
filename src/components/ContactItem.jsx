@@ -1,7 +1,7 @@
 
 
 
-export function ContactItem ({name,number,onClick}){
+export function ContactItem ({name,number,id,onClick}){
 
 
     return (
@@ -9,7 +9,7 @@ export function ContactItem ({name,number,onClick}){
             <p style={{
                 display:"inline-block"
             }}>{name}: {number}</p>
-            <button onClick={onClick}>Delete</button>
+            <button type="button" name={name} onClick={()=>onClick(id)}>Delete</button>
             </li>
         )
 }

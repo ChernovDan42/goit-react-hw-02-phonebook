@@ -14,7 +14,7 @@ export class ContactList extends Component {
                 {
                    contacts.map(el => {
                     return (
-                        <ContactItem key={el.id} name={el.name} number={el.number} onClick={ onClick } />
+                        <ContactItem key={el.id} name={el.name} number={el.number} id={el.id} onClick={onClick } />
                     )
               
                 })}
