@@ -50,7 +50,7 @@ return this.state.contacts.find(el=> el.name===obj.name)
   }
 
   
-  onClick = (id) => {
+  handleDeleteContact = (id) => {
 
     const { contacts } = this.state
     const updateState = contacts.filter(el => el.id !== id);
@@ -92,7 +92,7 @@ return this.state.contacts.find(el=> el.name===obj.name)
        
         < ContactList 
           contacts={visibleContacts}
-          onClick={this.onClick}
+          handleDeleteContact={this.handleDeleteContact}
           />
         
 
