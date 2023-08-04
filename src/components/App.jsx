@@ -1,7 +1,7 @@
 import { Component } from "react"
-import { ContactForm } from "./ContactForm"
-import { Filter } from "./Filter"
-import { ContactList } from "./ContactList"
+import { ContactForm } from "./ContactForm/ContactForm"
+import { Filter } from "./Filter/Filter"
+import { ContactList } from "./ContactList/ContactList"
 
 
 
@@ -23,9 +23,9 @@ export class App extends Component {
   }
 
 
-  onFilterChange = str => {
+  onFilterChange = e => {
    this.setState({
-      filter: str
+      filter: e.currentTarget.value
     })
   }   
   
@@ -47,68 +47,59 @@ return this.state.contacts.find(el=> el.name===obj.name)
       contacts: [...prevState.contacts, obj ]
     
     }))
-
-
   }
 
   
-
-  handleFilter = () => {
-    
-    const { filter, contacts } = this.state
-
-    
-   return contacts.filter(el => {
-      const name = el.name.toLowerCase()
-      return name.includes(filter.toLowerCase())
-    })
-    
-
-  }
-
   onClick = (id) => {
+
+    const { contacts } = this.state
+    const updateState = contacts.filter(el => el.id !== id);
     
-   
-
-    this.setState(prevState => {
-      const updateState = prevState.contacts.filter(el => el.id !== id);
-
-      return { contacts: updateState };
+    this.setState({
+     contacts: updateState 
     });
 
   }
 
- 
-
+  filteredContacts = () => {
+    const { filter, contacts } = this.state
+  const normalized=filter.toLowerCase()
 
   
+    
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalized))
+    
+
+  }
+
+ 
   render() {
 
-    
-    
-    const { filter, contacts } = this.state
-    
-  
+    const visibleContacts = this.filteredContacts();
+
 
     return (
-   <div>
+      <div style={{
+        marginLeft: 50,
+      }}>
         <h1>Phonebook</h1>
         
       <ContactForm onSubmit={this.onSubmit}/>
 
 
         <h2>Contacts</h2>
-        <Filter onChange={ this.onFilterChange} />
+        <Filter filter={this.state.filter} onChange={ this.onFilterChange} />
        
         < ContactList 
-          contacts={this.handleFilter()}
+          contacts={visibleContacts}
           onClick={this.onClick}
           />
         
 
     </div>
-)
-   
 
+  
+)
+  
   }
 };
