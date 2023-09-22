@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import css from './ContactForm.module.css';
-import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
 export class ContactForm extends Component {
@@ -17,22 +16,20 @@ export class ContactForm extends Component {
 
   saveContact = e => {
     e.preventDefault();
-    this.props.onSubmit({ ...this.state, id: nanoid() });
+    this.props.onSubmit({ ...this.state });
     this.setState({ name: '', number: '' });
   };
 
   render() {
     const { name, number } = this.state;
-    const IdNameInput = nanoid();
-    const IdNumberInput = nanoid();
 
     return (
       <form className={css.ContactForm} onSubmit={this.saveContact}>
-        <label htmlFor={IdNameInput} className={css.label}>
+        <label htmlFor="nameInput" className={css.label}>
           Name
         </label>
         <input
-          id={IdNameInput}
+          id="nameInput"
           className={css.ContactFormInput}
           type="text"
           name="name"
@@ -43,12 +40,12 @@ export class ContactForm extends Component {
           required
         />
 
-        <label htmlFor={IdNumberInput} className={css.label}>
+        <label htmlFor="numberInput" className={css.label}>
           Number
         </label>
         <input
           className={css.ContactFormInput}
-          id={IdNumberInput}
+          id="numberInput"
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
